@@ -8,7 +8,7 @@ namespace Account.Domain
 {
     public interface IAccountRepository
     {
-        Task<Account> MakeADepositInAnAccount(Account account);
+        Task<Account> MakeADepositInAnAccount(int idAccount, decimal amount);
             
     }
 }

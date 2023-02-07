@@ -13,9 +13,9 @@ namespace Account.Domain
         { 
             _accountRepository= accountRepository;
         }
-        public  async Task<Account> MakeADepositInAnAccount(Account account)
+        public  async Task<Account> MakeADepositInAnAccount(int idAccount,decimal amount)
         {
-            return  await _accountRepository.MakeADepositInAnAccount(account);
+            return  await _accountRepository.MakeADepositInAnAccount(idAccount,amount);
         }
     }
 }

@@ -7,15 +7,14 @@ namespace Account.Domain.Tests
         [Fact]
         public async Task ShouldBeAbleToMakeADepositInAnAccount()
         {
-            var input = new Account(1,DateTime.Now,100,1000);
             var expected = new Account(1, DateTime.Now, 100, 1000);
 
             var mockBankAccountRepository = new Mock<IAccountRepository>();
-            mockBankAccountRepository.Setup(x => x.MakeADepositInAnAccount(input)).ReturnsAsync(expected);
+            mockBankAccountRepository.Setup(x => x.MakeADepositInAnAccount(expected.Id,10)).ReturnsAsync(expected);
 
             var accountService = new AccountService(mockBankAccountRepository.Object);
 
-            var actual = await accountService.MakeADepositInAnAccount(input);
+            var actual = await accountService.MakeADepositInAnAccount(expected.Id,10);
 
             Assert.Equal(expected, actual);
 
