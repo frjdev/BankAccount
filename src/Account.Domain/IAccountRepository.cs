@@ -10,6 +10,7 @@ namespace Account.Domain
     {
         Task<Account?> MakeADepositInAnAccount(int idAccount, decimal amount);
         Task<Account?> MakeAWithdrawalInAnAccount(int idaccount, decimal amount);
+        Task<List<Operation>?> GetAllTransctionsAsync();
             
     }
 }

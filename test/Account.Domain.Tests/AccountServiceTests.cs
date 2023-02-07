@@ -1,5 +1,6 @@
 using Helpers;
 using Moq;
+using System.Transactions;
 
 namespace Account.Domain.Tests
 {
@@ -33,6 +34,21 @@ namespace Account.Domain.Tests
             var actual = await accountService.MakeAWithdrawalInAnAccount(expected!.Id, 10);
 
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ShouldBeAbleToGetAllTransactions()
+        {
+            var expected = new List<Operation>();
+
+
+            var mockBankAccountRepository = new Mock<IAccountRepository>();
+            mockBankAccountRepository.Setup(x => x.GetAllTransctionsAsync()).ReturnsAsync(expected);
+
+            var account = new AccountService(mockBankAccountRepository.Object);
+            var actual = account.GetAllTransctionsAsync();
+
+            Assert.Equal(actual, expected);
         }
     }
 }
