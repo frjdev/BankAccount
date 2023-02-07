@@ -1,17 +1,23 @@
+using Moq;
+
 namespace Account.Domain.Tests
 {
     public class AccountServiceTests
     {
         [Fact]
-        public void ShouldBeAbleToMakeADepositInAnAccount()
+        public async Task ShouldBeAbleToMakeADepositInAnAccount()
         {
             var input = new Account(1,DateTime.Now,100,1000);
-            //var expected = new Account(1, DateTime.Now, 100, 1000);
+            var expected = new Account(1, DateTime.Now, 100, 1000);
 
-            var accountService = new AccountService();
-            var actual = accountService.MakeADepositInAnAccount(input);
+            var mockBankAccountRepository = new Mock<IAccountRepository>();
+            mockBankAccountRepository.Setup(x => x.MakeADepositInAnAccount(input)).ReturnsAsync(expected);
 
-            Assert.Equal(input, actual);
+            var accountService = new AccountService(mockBankAccountRepository.Object);
+
+            var actual = await accountService.MakeADepositInAnAccount(input);
+
+            Assert.Equal(expected, actual);
 
         }
     }
