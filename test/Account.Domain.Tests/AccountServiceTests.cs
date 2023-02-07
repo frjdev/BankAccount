@@ -19,5 +19,20 @@ namespace Account.Domain.Tests
 
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public async Task ShouldBeAbleToMakeAWithdrawalInAnAccount()
+        {
+            var expected = Samples.accountsSamples!.FirstOrDefault();
+
+            var mockBankAccountRepository = new Mock<IAccountRepository>();
+            mockBankAccountRepository.Setup(x => x.MakeAWithdrawalInAnAccount(expected!.Id, 10)).ReturnsAsync(expected);
+
+            var accountService = new AccountService(mockBankAccountRepository.Object);
+
+            var actual = await accountService.MakeAWithdrawalInAnAccount(expected!.Id, 10);
+
+            Assert.Equal(expected, actual);
+        }
     }
 }
