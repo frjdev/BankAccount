@@ -8,9 +8,14 @@ namespace Account.Domain
 {
     public class AccountService
     {
-        public Account MakeADepositInAnAccount(Account account)
+        private readonly IAccountRepository _accountRepository;
+        public AccountService(IAccountRepository accountRepository) 
+        { 
+            _accountRepository= accountRepository;
+        }
+        public  async Task<Account> MakeADepositInAnAccount(Account account)
         {
-            return account;
+            return  await _accountRepository.MakeADepositInAnAccount(account);
         }
     }
 }
