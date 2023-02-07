@@ -20,7 +20,7 @@ namespace Account.Domain
 
         public async Task<Account?> MakeAWithdrawalInAnAccount(int idAccount, decimal amount)
         {
-            return new Account(1,DateTime.Now,idAccount,amount);
+            return await _accountRepository.MakeAWithdrawalInAnAccount(idAccount, amount);
         }
     }
 }
