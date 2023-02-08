@@ -39,5 +39,18 @@ namespace Account.WebAPI
 
             return TypedResults.Ok(accountView);
         }
+
+        [HttpGet()]
+        public async Task<IResult> GetAllTransactionsAsync()
+        {
+            var transactionsDomain = await _accountService.GetAllTransactionsAsync();
+
+            if (transactionsDomain == null)
+                return TypedResults.BadRequest();
+
+            var transactionsView = transactionsDomain.Select(x => OperationView.FromDomain(x!));
+
+            return TypedResults.Ok(transactionsView);
+        }
     }
 }
