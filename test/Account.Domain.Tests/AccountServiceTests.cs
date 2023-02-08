@@ -1,5 +1,6 @@
 using Helpers;
 using Moq;
+using System.Collections.Immutable;
 using System.Transactions;
 
 namespace Account.Domain.Tests
@@ -37,16 +38,15 @@ namespace Account.Domain.Tests
         }
 
         [Fact]
-        public void ShouldBeAbleToGetAllTransactions()
+        public async Task ShouldBeAbleToGetAllTransactions()
         {
-            var expected = new List<Operation>();
-
+            var expected = Samples.transctionSamples!.ToImmutableList();
 
             var mockBankAccountRepository = new Mock<IAccountRepository>();
-            mockBankAccountRepository.Setup(x => x.GetAllTransctionsAsync()).ReturnsAsync(expected);
+            mockBankAccountRepository.Setup(x => x.GetAllTransctionsAsync()).Returns(Task.FromResult(expected)!);
 
             var account = new AccountService(mockBankAccountRepository.Object);
-            var actual = account.GetAllTransctionsAsync();
+            var actual = await account.GetAllTransctionsAsync();
 
             Assert.Equal(actual, expected);
         }
