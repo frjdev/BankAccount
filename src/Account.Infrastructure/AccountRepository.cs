@@ -25,19 +25,16 @@ namespace Account.Infrastructure
             var accountData = await _accountContext.AccountSet.FirstOrDefaultAsync(x => x.Id == idAccount);
 
             if (accountData == null)
-            {
                 return null;
-            }
 
             accountData.Balance += amount;
             await _accountContext.SaveChangesAsync();
 
 
-            var operation = new OperationData() { Type = "Deposit", AccountData = accountData };
+            var addOperation = await AddDepositOperation(accountData);
 
-            await _accountContext.OperationSet.AddAsync(operation);
-            await _accountContext.SaveChangesAsync();
-
+            if (!addOperation)
+                return null;
 
             return AccountData.ToDomain(accountData);
         }
@@ -45,6 +42,16 @@ namespace Account.Infrastructure
         public Task<Domain.Account?> MakeAWithdrawalInAnAccount(int idaccount, decimal amount)
         {
             throw new NotImplementedException();
+        }
+
+        private async Task<bool> AddDepositOperation(AccountData accountData)
+        {
+            var operation = new OperationData() { Type = "Deposit", AccountData = accountData };
+
+            await _accountContext.OperationSet.AddAsync(operation);
+            var writtenState = await _accountContext.SaveChangesAsync();
+
+            return writtenState == 1;
         }
     }
 }
