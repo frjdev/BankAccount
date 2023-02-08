@@ -11,7 +11,7 @@ namespace Account.Infrastructure
             _accountContext= accountContext;
         }
 
-        public Task<ImmutableList<Operation>> GetAllTransctionsAsync()
+        public Task<ImmutableList<Operation>> GetAllTransactionsAsync()
         {
             var operationData =  _accountContext.OperationSet;
             var operationDomain = operationData.Select(x => OperationData.ToDomain(x)).ToImmutableList();

@@ -43,10 +43,10 @@ namespace Account.Domain.Tests
             var expected = Samples.transctionSamples!.ToImmutableList();
 
             var mockBankAccountRepository = new Mock<IAccountRepository>();
-            mockBankAccountRepository.Setup(x => x.GetAllTransctionsAsync()).Returns(Task.FromResult(expected)!);
+            mockBankAccountRepository.Setup(x => x.GetAllTransactionsAsync()).Returns(Task.FromResult(expected)!);
 
             var account = new AccountService(mockBankAccountRepository.Object);
-            var actual = await account.GetAllTransctionsAsync();
+            var actual = await account.GetAllTransactionsAsync();
 
             Assert.Equal(actual, expected);
         }

@@ -26,9 +26,9 @@ namespace Account.Domain
             return await _accountRepository.MakeAWithdrawalInAnAccount(idAccount, amount);
         }
 
-        public async Task<ImmutableList<Operation>> GetAllTransctionsAsync()
+        public async Task<ImmutableList<Operation>> GetAllTransactionsAsync()
         {
-            return await _accountRepository.GetAllTransctionsAsync();
+            return await _accountRepository.GetAllTransactionsAsync();
         }
     }
 }
