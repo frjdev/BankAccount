@@ -1,7 +1,6 @@
 ﻿using Account.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Immutable;
-using System.Security.Principal;
 
 namespace Account.Infrastructure
 {
