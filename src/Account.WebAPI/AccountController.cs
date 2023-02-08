@@ -13,10 +13,13 @@ namespace Account.WebAPI
             _accountService= accountService;
         }
 
-        [HttpPost("Deposit/{id}")]
-        public async Task<IResult> MakeADepositInAnAccount(int idAccount, decimal amount)
+        [HttpPut("Deposit/{id}")]
+        public async Task<IResult> MakeADepositInAnAccount(int id, AccountUpdateModel UpateModelAmount)
         {
-           var accountDomain = await _accountService.MakeADepositInAnAccount(idAccount, amount);
+            if (UpateModelAmount.amount == 0)
+                return TypedResults.NoContent();
+
+           var accountDomain = await _accountService.MakeADepositInAnAccount(id, UpateModelAmount.amount);
 
             if (accountDomain == null)
                 return TypedResults.BadRequest();
@@ -27,10 +30,13 @@ namespace Account.WebAPI
         }
 
 
-        [HttpPost("Withdrawal/{id}")]
-        public async Task<IResult> MakeAWithdrawalInAnAccount(int idAccount, decimal amount)
+        [HttpPut("Withdrawal/{id}")]
+        public async Task<IResult> MakeAWithdrawalInAnAccount(int id, AccountUpdateModel UpateModelAmount)
         {
-            var accountDomain = await _accountService.MakeAWithdrawalInAnAccount(idAccount, amount);
+            if (UpateModelAmount.amount == 0)
+                return TypedResults.NoContent();
+
+            var accountDomain = await _accountService.MakeAWithdrawalInAnAccount(id, UpateModelAmount.amount);
 
             if (accountDomain == null)
                 return TypedResults.BadRequest();
