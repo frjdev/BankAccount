@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Account.WebAPI
 {
+    [ApiController]
+    [Route("[controller]")]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
@@ -11,5 +13,17 @@ namespace Account.WebAPI
             _accountService= accountService;
         }
 
+        [HttpPost("{id}")]
+        public async Task<IResult> MakeADepositInAnAccount(int idAccount, decimal amount)
+        {
+           var accountDomain = await _accountService.MakeADepositInAnAccount(idAccount, amount);
+
+            if (accountDomain == null)
+                return TypedResults.BadRequest();
+
+            var accountView = AccountView.FromDomain(accountDomain!);
+
+            return TypedResults.Ok(accountView);
+        }
     }
 }
