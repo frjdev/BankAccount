@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Account.Domain
 {
-    public class AccountService
+    public class AccountService : IAccountService
     {
         private readonly IAccountRepository _accountRepository;
         public AccountService(IAccountRepository accountRepository) 
