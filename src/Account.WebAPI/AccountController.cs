@@ -13,7 +13,7 @@ namespace Account.WebAPI
             _accountService= accountService;
         }
 
-        [HttpPost("{id}")]
+        [HttpPost("Deposit/{id}")]
         public async Task<IResult> MakeADepositInAnAccount(int idAccount, decimal amount)
         {
            var accountDomain = await _accountService.MakeADepositInAnAccount(idAccount, amount);
@@ -27,7 +27,7 @@ namespace Account.WebAPI
         }
 
 
-        [HttpPost("{id}")]
+        [HttpPost("Withdrawal/{id}")]
         public async Task<IResult> MakeAWithdrawalInAnAccount(int idAccount, decimal amount)
         {
             var accountDomain = await _accountService.MakeAWithdrawalInAnAccount(idAccount, amount);
