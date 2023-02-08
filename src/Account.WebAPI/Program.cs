@@ -1,22 +1,20 @@
+using Account.Domain;
+using Account.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddTransient<IAccountRepository, AccountRepository>();
+builder.Services.AddDbContext<AccountContext>(options =>
 {
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
+    options.UseSqlite($"DataSource=BankAccount.db;");
+});
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+builder.Services.AddControllers();
 
-app.UseRouting();
 
-app.UseAuthorization();
-
-app.MapRazorPages();
-
+app.MapControllers();
 app.Run();
