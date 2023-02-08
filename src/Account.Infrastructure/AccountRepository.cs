@@ -7,7 +7,7 @@ namespace Account.Infrastructure
 {
     public class AccountRepository : IAccountRepository
     {
-        private readonly AccountContext _accountContext;
+        public readonly AccountContext _accountContext;
         public AccountRepository(AccountContext accountContext) 
         { 
             _accountContext= accountContext;

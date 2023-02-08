@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Account.Infrastructure
 {
@@ -12,8 +7,13 @@ namespace Account.Infrastructure
     {
         public AccountContext CreateDbContext(string[] args)
         {
+
+            var folder = Environment.SpecialFolder.LocalApplicationData;
+            var path = Environment.GetFolderPath(folder);
+            var DbPath = Path.Join(path, "BankAccount.db");
+
             var optionsBuilder = new DbContextOptionsBuilder<AccountContext>();
-            optionsBuilder.UseSqlite($"DataSource=BankAccount.db;");
+            optionsBuilder.UseSqlite($"DataSource={DbPath}");
 
             return new AccountContext(optionsBuilder.Options);
         }

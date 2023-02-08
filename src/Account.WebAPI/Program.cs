@@ -4,17 +4,21 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
 
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IAccountRepository, AccountRepository>();
+
+var folder = Environment.SpecialFolder.LocalApplicationData;
+var path = Environment.GetFolderPath(folder);
+var DbPath = Path.Join(path, "BankAccount.db");
+
 builder.Services.AddDbContext<AccountContext>(options =>
 {
-    options.UseSqlite($"DataSource=BankAccount.db;");
+    options.UseSqlite($"DataSource={DbPath}");
 });
 
 builder.Services.AddControllers();
-
+var app = builder.Build();
 
 app.MapControllers();
 app.Run();
