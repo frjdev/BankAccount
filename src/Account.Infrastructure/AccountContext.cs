@@ -35,7 +35,7 @@ namespace Account.Infrastructure
 
             modelBuilder.Entity<AccountData>().HasData(
                                              new AccountData { Id = 1, Date = DateTime.Now, Amount = 10, Balance = 1000 },
-                                             new AccountData { Id = 2, Date = DateTime.Now, Amount = 10, Balance = 1000 },
+                                             new AccountData { Id = 2, Date = DateTime.Now, Amount = 10, Balance = 0 },
                                              new AccountData { Id = 3, Date = DateTime.Now, Amount = 10, Balance = 1000 });
 
          ;

@@ -49,6 +49,10 @@ namespace Account.Infrastructure
                 return null;
 
             accountData.Amount = amount;
+
+            if (accountData.Balance - amount < 0)
+                throw new Exception("Insufficient funds");
+
             accountData.Balance -= amount;
             await _accountContext.SaveChangesAsync();
 
