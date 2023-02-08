@@ -63,17 +63,19 @@ namespace Account.Infrastructure
         {
             var operation = new OperationData() { Type = "Deposit", AccountData = accountData };
 
-            await _accountContext.OperationSet.AddAsync(operation);
-            var writtenState = await _accountContext.SaveChangesAsync();
-
-            return writtenState == 1;
+            return await AddOperation(operation);
         }
 
         private async Task<bool> AddWithdrawalOperation(AccountData accountData)
         {
             var operation = new OperationData() { Type = "WithDrawal", AccountData = accountData };
 
-            await _accountContext.OperationSet.AddAsync(operation);
+            return  await AddOperation(operation);
+        }
+
+        private async Task<bool> AddOperation(OperationData operationData)
+        {
+            await _accountContext.OperationSet.AddAsync(operationData);
             var writtenState = await _accountContext.SaveChangesAsync();
 
             return writtenState == 1;
