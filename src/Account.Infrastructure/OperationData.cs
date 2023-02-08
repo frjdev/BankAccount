@@ -18,5 +18,9 @@ namespace Account.Infrastructure
         public int Id { get; set; }
         public string? Type { get; set; }
         public AccountData? AccountData { get; set; }
+
+        public static Domain.Operation ToDomain(OperationData operation)
+           => new Domain.Operation(operation.Id, operation.Type, AccountData.ToDomain(operation.AccountData!));
+
     }
 }

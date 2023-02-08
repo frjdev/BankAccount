@@ -20,5 +20,8 @@ namespace Account.Infrastructure
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }
         public decimal Balance { get; set; }
+
+        public static Domain.Account ToDomain(AccountData account)
+            => new Domain.Account(account.Id, account.Date, account.Amount, account.Balance);
     }
 }

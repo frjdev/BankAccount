@@ -5,14 +5,20 @@ namespace Account.Infrastructure
 {
     public class AccountRepository : IAccountRepository
     {
-        public AccountRepository() 
+        private readonly AccountContext _accountContext;
+        public AccountRepository(AccountContext accountContext) 
         { 
-
+            _accountContext= accountContext;
         }
 
         public Task<ImmutableList<Operation>> GetAllTransctionsAsync()
         {
-            throw new NotImplementedException();
+            var operationData =  _accountContext.OperationSet;
+            var operationDomain = operationData.Select(x => OperationData.ToDomain(x)).ToImmutableList();
+
+            return Task.FromResult(operationDomain);
+
+
         }
 
         public Task<Domain.Account?> MakeADepositInAnAccount(int idAccount, decimal amount)
