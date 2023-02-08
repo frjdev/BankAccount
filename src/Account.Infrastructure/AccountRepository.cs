@@ -15,7 +15,7 @@ namespace Account.Infrastructure
 
         public Task<ImmutableList<Operation>> GetAllTransactionsAsync()
         {
-            var operationData =  _accountContext.OperationSet;
+            var operationData =  _accountContext.OperationSet.Include(x => x.AccountData).ToList();
             var operationDomain = operationData.Select(x => OperationData.ToDomain(x)).ToImmutableList();
 
             return Task.FromResult(operationDomain);
