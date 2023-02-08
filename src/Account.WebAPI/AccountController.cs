@@ -25,5 +25,19 @@ namespace Account.WebAPI
 
             return TypedResults.Ok(accountView);
         }
+
+
+        [HttpPost("{id}")]
+        public async Task<IResult> MakeAWithdrawalInAnAccount(int idAccount, decimal amount)
+        {
+            var accountDomain = await _accountService.MakeAWithdrawalInAnAccount(idAccount, amount);
+
+            if (accountDomain == null)
+                return TypedResults.BadRequest();
+
+            var accountView = AccountView.FromDomain(accountDomain!);
+
+            return TypedResults.Ok(accountView);
+        }
     }
 }
