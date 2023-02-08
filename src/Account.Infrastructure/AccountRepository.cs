@@ -28,6 +28,7 @@ namespace Account.Infrastructure
             if (accountData == null)
                 return null;
 
+            accountData.Amount = amount;
             accountData.Balance += amount;
             await _accountContext.SaveChangesAsync();
 
@@ -47,6 +48,7 @@ namespace Account.Infrastructure
             if (accountData == null)
                 return null;
 
+            accountData.Amount = amount;
             accountData.Balance -= amount;
             await _accountContext.SaveChangesAsync();
 
