@@ -1,6 +1,7 @@
 ﻿using Account.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Immutable;
+using System.Security.Principal;
 
 namespace Account.Infrastructure
 {
@@ -39,14 +40,38 @@ namespace Account.Infrastructure
             return AccountData.ToDomain(accountData);
         }
 
-        public Task<Domain.Account?> MakeAWithdrawalInAnAccount(int idaccount, decimal amount)
+        public async Task<Domain.Account?> MakeAWithdrawalInAnAccount(int idAccount, decimal amount)
         {
-            throw new NotImplementedException();
+            var accountData = await _accountContext.AccountSet.FirstOrDefaultAsync(x => x.Id == idAccount);
+
+            if (accountData == null)
+                return null;
+
+            accountData.Balance -= amount;
+            await _accountContext.SaveChangesAsync();
+
+
+            var addOperation = await AddWithdrawalOperation(accountData);
+
+            if (!addOperation)
+                return null;
+
+            return AccountData.ToDomain(accountData);
         }
 
         private async Task<bool> AddDepositOperation(AccountData accountData)
         {
             var operation = new OperationData() { Type = "Deposit", AccountData = accountData };
+
+            await _accountContext.OperationSet.AddAsync(operation);
+            var writtenState = await _accountContext.SaveChangesAsync();
+
+            return writtenState == 1;
+        }
+
+        private async Task<bool> AddWithdrawalOperation(AccountData accountData)
+        {
+            var operation = new OperationData() { Type = "WithDrawal", AccountData = accountData };
 
             await _accountContext.OperationSet.AddAsync(operation);
             var writtenState = await _accountContext.SaveChangesAsync();
