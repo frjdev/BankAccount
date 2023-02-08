@@ -8,9 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IAccountRepository, AccountRepository>();
 
-var folder = Environment.SpecialFolder.LocalApplicationData;
-var path = Environment.GetFolderPath(folder);
-var DbPath = Path.Join(path, "BankAccount.db");
+
+
+string workingDirectory = Environment.CurrentDirectory;
+
+var DbPath = Path.Join(workingDirectory, "BankAccount.db");
 
 builder.Services.AddDbContext<AccountContext>(options =>
 {

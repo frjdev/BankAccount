@@ -42,21 +42,21 @@ namespace Account.Infrastructure.Migrations
                             Id = 1,
                             Amount = 10m,
                             Balance = 1000m,
-                            Date = new DateTime(2023, 2, 8, 12, 40, 11, 997, DateTimeKind.Local).AddTicks(6037)
+                            Date = new DateTime(2023, 2, 8, 21, 10, 14, 376, DateTimeKind.Local).AddTicks(2619)
                         },
                         new
                         {
                             Id = 2,
                             Amount = 10m,
                             Balance = 0m,
-                            Date = new DateTime(2023, 2, 8, 12, 40, 11, 997, DateTimeKind.Local).AddTicks(6089)
+                            Date = new DateTime(2023, 2, 8, 21, 10, 14, 376, DateTimeKind.Local).AddTicks(2674)
                         },
                         new
                         {
                             Id = 3,
                             Amount = 10m,
                             Balance = 1000m,
-                            Date = new DateTime(2023, 2, 8, 12, 40, 11, 997, DateTimeKind.Local).AddTicks(6091)
+                            Date = new DateTime(2023, 2, 8, 21, 10, 14, 376, DateTimeKind.Local).AddTicks(2677)
                         });
                 });
 

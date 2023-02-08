@@ -7,10 +7,10 @@ namespace Account.Infrastructure
     {
         public AccountContext CreateDbContext(string[] args)
         {
+            string workingDirectory = Environment.CurrentDirectory;
+            string dataBaseDirectory = $@"{Directory.GetParent(workingDirectory)!.FullName}\Account.WebAPI";
 
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            var DbPath = Path.Join(path, "BankAccount.db");
+            var DbPath = Path.Join(dataBaseDirectory, "BankAccount.db");
 
             var optionsBuilder = new DbContextOptionsBuilder<AccountContext>();
             optionsBuilder.UseSqlite($"DataSource={DbPath}");

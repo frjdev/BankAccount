@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Account.Infrastructure.Migrations
 {
     [DbContext(typeof(AccountContext))]
-    [Migration("20230208105446_AddBankAccountCreated")]
-    partial class AddBankAccountCreated
+    [Migration("20230208201014_createFirstMigration")]
+    partial class createFirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,21 +45,21 @@ namespace Account.Infrastructure.Migrations
                             Id = 1,
                             Amount = 10m,
                             Balance = 1000m,
-                            Date = new DateTime(2023, 2, 8, 11, 54, 46, 630, DateTimeKind.Local).AddTicks(543)
+                            Date = new DateTime(2023, 2, 8, 21, 10, 14, 376, DateTimeKind.Local).AddTicks(2619)
                         },
                         new
                         {
                             Id = 2,
                             Amount = 10m,
-                            Balance = 1000m,
-                            Date = new DateTime(2023, 2, 8, 11, 54, 46, 630, DateTimeKind.Local).AddTicks(602)
+                            Balance = 0m,
+                            Date = new DateTime(2023, 2, 8, 21, 10, 14, 376, DateTimeKind.Local).AddTicks(2674)
                         },
                         new
                         {
                             Id = 3,
                             Amount = 10m,
                             Balance = 1000m,
-                            Date = new DateTime(2023, 2, 8, 11, 54, 46, 630, DateTimeKind.Local).AddTicks(604)
+                            Date = new DateTime(2023, 2, 8, 21, 10, 14, 376, DateTimeKind.Local).AddTicks(2677)
                         });
                 });
 

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Account.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddBankAccountCreated : Migration
+    public partial class createFirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -53,9 +53,9 @@ namespace Account.Infrastructure.Migrations
                 columns: new[] { "Id", "Amount", "Balance", "Date" },
                 values: new object[,]
                 {
-                    { 1, 10m, 1000m, new DateTime(2023, 2, 8, 11, 54, 46, 630, DateTimeKind.Local).AddTicks(543) },
-                    { 2, 10m, 1000m, new DateTime(2023, 2, 8, 11, 54, 46, 630, DateTimeKind.Local).AddTicks(602) },
-                    { 3, 10m, 1000m, new DateTime(2023, 2, 8, 11, 54, 46, 630, DateTimeKind.Local).AddTicks(604) }
+                    { 1, 10m, 1000m, new DateTime(2023, 2, 8, 21, 10, 14, 376, DateTimeKind.Local).AddTicks(2619) },
+                    { 2, 10m, 0m, new DateTime(2023, 2, 8, 21, 10, 14, 376, DateTimeKind.Local).AddTicks(2674) },
+                    { 3, 10m, 1000m, new DateTime(2023, 2, 8, 21, 10, 14, 376, DateTimeKind.Local).AddTicks(2677) }
                 });
 
             migrationBuilder.InsertData(
