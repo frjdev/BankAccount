@@ -1,54 +1,53 @@
 using Helpers;
 using Moq;
 using System.Collections.Immutable;
-using System.Transactions;
 
-namespace Account.Domain.Tests
+namespace Account.Domain.Tests;
+
+public class AccountServiceTests
 {
-    public class AccountServiceTests
+    [Fact]
+    public async Task ShouldBeAbleToMakeADepositInAnAccount()
     {
-        [Fact]
-        public async Task ShouldBeAbleToMakeADepositInAnAccount()
-        {
-            var expected = Samples.accountsSamples!.FirstOrDefault();
+        var expected = Samples.accountsSamples!.FirstOrDefault();
 
-            var mockBankAccountRepository = new Mock<IAccountRepository>();
-            mockBankAccountRepository.Setup(x => x.MakeADepositInAnAccount(expected!.Id,10)).ReturnsAsync(expected);
+        var mockBankAccountRepository = new Mock<IAccountRepository>();
+        mockBankAccountRepository.Setup(x => x.MakeADepositInAnAccountAsync(expected!.Id, 10)).ReturnsAsync(expected);
 
-            var accountService = new AccountService(mockBankAccountRepository.Object);
+        var accountService = new AccountService(mockBankAccountRepository.Object);
 
-            var actual = await accountService.MakeADepositInAnAccount(expected!.Id,10);
+        var actual = await accountService.MakeADepositInAnAccountAsync(expected!.Id, 10).ConfigureAwait(false);
 
-            Assert.Equal(expected, actual);
-        }
+        Assert.Equal(expected, actual);
+    }
 
-        [Fact]
-        public async Task ShouldBeAbleToMakeAWithdrawalInAnAccount()
-        {
-            var expected = Samples.accountsSamples!.FirstOrDefault();
+    [Fact]
+    public async Task ShouldBeAbleToMakeAWithdrawalInAnAccount()
+    {
+        var account = Samples.accountsSamples!.FirstOrDefault();
+        var expected = (true, account, string.Empty);
 
-            var mockBankAccountRepository = new Mock<IAccountRepository>();
-            mockBankAccountRepository.Setup(x => x.MakeAWithdrawalInAnAccount(expected!.Id, 10)).ReturnsAsync(expected);
+        var mockBankAccountRepository = new Mock<IAccountRepository>();
+        mockBankAccountRepository.Setup(x => x.MakeAWithdrawalInAnAccountAsync(expected!.account!.Id, 10)).ReturnsAsync(expected);
 
-            var accountService = new AccountService(mockBankAccountRepository.Object);
+        var accountService = new AccountService(mockBankAccountRepository.Object);
 
-            var actual = await accountService.MakeAWithdrawalInAnAccount(expected!.Id, 10);
+        var actual = await accountService.MakeAWithdrawalInAnAccountAsync(expected!.account!.Id, 10).ConfigureAwait(false);
 
-            Assert.Equal(expected, actual);
-        }
+        Assert.Equal(expected, actual);
+    }
 
-        [Fact]
-        public async Task ShouldBeAbleToGetAllTransactions()
-        {
-            var expected = Samples.transctionSamples!.ToImmutableList();
+    [Fact]
+    public async Task ShouldBeAbleToGetAllTransactions()
+    {
+        var expected = Samples.transctionSamples!.ToImmutableList();
 
-            var mockBankAccountRepository = new Mock<IAccountRepository>();
-            mockBankAccountRepository.Setup(x => x.GetAllTransactionsAsync()).Returns(Task.FromResult(expected)!);
+        var mockBankAccountRepository = new Mock<IAccountRepository>();
+        mockBankAccountRepository.Setup(x => x.GetAllTransactionsAsync()).Returns(Task.FromResult(expected)!);
 
-            var account = new AccountService(mockBankAccountRepository.Object);
-            var actual = await account.GetAllTransactionsAsync();
+        var account = new AccountService(mockBankAccountRepository.Object);
+        var actual = await account.GetAllTransactionsAsync().ConfigureAwait(false);
 
-            Assert.Equal(actual, expected);
-        }
+        Assert.Equal(actual, expected);
     }
 }

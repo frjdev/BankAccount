@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account.Domain", "src\Account.Domain\Account.Domain.csproj", "{8D966128-D26F-48D2-A7C6-7692B3AE5F1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.Domain", "src\Account.Domain\Account.Domain.csproj", "{8D966128-D26F-48D2-A7C6-7692B3AE5F1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account.Domain.Tests", "Test\Account.Domain.Tests\Account.Domain.Tests.csproj", "{45958067-5A8D-4BC8-A1BB-68014D625C5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.Domain.Tests", "Test\Account.Domain.Tests\Account.Domain.Tests.csproj", "{45958067-5A8D-4BC8-A1BB-68014D625C5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "test\Helpers\Helpers.csproj", "{81EBB644-CEB7-4F15-8E8C-0A6A89A849C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helpers", "test\Helpers\Helpers.csproj", "{81EBB644-CEB7-4F15-8E8C-0A6A89A849C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account.Infrastructure", "src\Account.Infrastructure\Account.Infrastructure.csproj", "{DA80494D-A8C9-4B0E-A23E-0403BFF80CAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.Infrastructure", "src\Account.Infrastructure\Account.Infrastructure.csproj", "{DA80494D-A8C9-4B0E-A23E-0403BFF80CAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account.WebAPI", "src\Account.WebAPI\Account.WebAPI.csproj", "{69A9A3B2-6171-475D-A671-E30AC47AA20D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.WebAPI", "src\Account.WebAPI\Account.WebAPI.csproj", "{69A9A3B2-6171-475D-A671-E30AC47AA20D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -4,8 +4,8 @@ namespace Account.Domain
 {
     public interface IAccountRepository
     {
-        Task<Account?> MakeADepositInAnAccount(int idAccount, decimal amount);
-        Task<Account?> MakeAWithdrawalInAnAccount(int idaccount, decimal amount);
+        Task<Account?> MakeADepositInAnAccountAsync(int idAccount, decimal amount);
+        Task<(bool IsSuccess, Account? account, string ErrorMessage)> MakeAWithdrawalInAnAccountAsync(int idAccount, decimal amount);
         Task<ImmutableList<Operation>> GetAllTransactionsAsync();    
     }
 }

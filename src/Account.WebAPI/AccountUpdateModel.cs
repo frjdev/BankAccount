@@ -1,7 +1,6 @@
-﻿namespace Account.WebAPI
+namespace Account.WebAPI;
+
+public record AccountUpdateModel
 {
-    public record AccountUpdateModel
-    {
-        public decimal amount { get; set; }
-    }
+    public decimal Amount { get; set; }
 }
