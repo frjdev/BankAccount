@@ -1,10 +1,17 @@
+# Built With
+
+.NET 7
+TDD - Xunit
+Hexagnoale
+SqLite EF
+
 # Bank Account Kata
 
 ## Directives
 
 Ce kata est un challenge d'architecture hexagonale, il s'implémente par étape avec un **1er focus sur le domaine métier**.
 
-Vos commits successifs dans Git retranscrivent vos étapes et le cycle TDD red/green/refactor si vous décidez de l'adopter. 
+Vos commits successifs dans Git retranscrivent vos étapes et le cycle TDD red/green/refactor si vous décidez de l'adopter.
 
 ### Etape 1 - Le modèle métier
 
@@ -27,6 +34,7 @@ Exposition des différentes fonctionnalités sur une API REST (Spring par ex.)
 Implémentation d'un adapteur de persistence de votre choix (SQLlite, H2, ...).
 
 ## User Stories
+
 ```
 In order to implement this Kata, think of your personal bank account experience.
 When in doubt, go for the simplest solution Requirements
@@ -34,7 +42,7 @@ When in doubt, go for the simplest solution Requirements
 * Deposit and Withdrawal
 * Account statement (date, amount, balance)
 * Statement printing
- 
+
 
 ## User Story 1
 
@@ -64,4 +72,5 @@ I want to see the history (operation, date, amount, balance) of my operations
 ```
 
 ## Credits
+
 Merci aux craftsmen de la SGIB pour leurs exigences qui nous tirent vers le meilleur.
