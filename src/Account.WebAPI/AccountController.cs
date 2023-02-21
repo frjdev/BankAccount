@@ -1,4 +1,4 @@
-﻿using Account.Domain;
+using Account.Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Account.WebAPI;
@@ -7,10 +7,10 @@ namespace Account.WebAPI;
 [Route("[controller]")]
 public class AccountController : ControllerBase
 {
-    private readonly IAccountService _accountService;
+    private readonly IAccountService _AccountService;
     public AccountController(IAccountService accountService)
     {
-        _accountService = accountService;
+        _AccountService = accountService;
     }
 
     [HttpPut("Deposit/{id}")]
@@ -21,7 +21,7 @@ public class AccountController : ControllerBase
             return TypedResults.NoContent();
         }
 
-        var accountDomain = await _accountService.MakeADepositInAnAccountAsync(id, UpateModelAmount.Amount).ConfigureAwait(false);
+        var accountDomain = await _AccountService.MakeADepositInAnAccountAsync(id, UpateModelAmount.Amount).ConfigureAwait(false);
 
         if (accountDomain == null)
         {
@@ -41,7 +41,7 @@ public class AccountController : ControllerBase
             return TypedResults.NoContent();
         }
 
-        var resultDomain = await _accountService.MakeAWithdrawalInAnAccountAsync(id, UpateModelAmount.Amount).ConfigureAwait(false);
+        var resultDomain = await _AccountService.MakeAWithdrawalInAnAccountAsync(id, UpateModelAmount.Amount).ConfigureAwait(false);
 
         if (!resultDomain.IsSuccess || resultDomain.account == null)
         {
@@ -56,7 +56,7 @@ public class AccountController : ControllerBase
     [HttpGet]
     public async Task<IResult> GetAllTransactionsAsync()
     {
-        var transactionsDomain = await _accountService.GetAllTransactionsAsync().ConfigureAwait(false);
+        var transactionsDomain = await _AccountService.GetAllTransactionsAsync().ConfigureAwait(false);
 
         if (transactionsDomain == null)
             return TypedResults.BadRequest();
