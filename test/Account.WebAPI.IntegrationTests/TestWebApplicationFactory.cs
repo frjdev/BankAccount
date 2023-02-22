@@ -21,7 +21,7 @@ public class TestWebApplicationFactory<TProgram>
             }
 
             var workingDirectory = Environment.CurrentDirectory;
-            var dataBaseDirectory = $@"{Directory.GetParent(workingDirectory)!.Parent!.Parent!.Parent!.Parent!.FullName}\src\Temperature.WebAPI";
+            var dataBaseDirectory = $@"{Directory.GetParent(workingDirectory)!.Parent!.Parent!.Parent!.Parent!.FullName}\src\Account.WebAPI";
 
             var DbPath = Path.Join(dataBaseDirectory, "BankAccount.db");
 
