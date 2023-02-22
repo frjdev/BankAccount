@@ -1,11 +1,10 @@
-﻿using System.Collections.Immutable;
+using System.Collections.Immutable;
 
-namespace Account.Domain
+namespace Account.Domain;
+
+public interface IAccountRepository
 {
-    public interface IAccountRepository
-    {
-        Task<Account?> MakeADepositInAnAccountAsync(int idAccount, decimal amount);
-        Task<(bool IsSuccess, Account? account, string ErrorMessage)> MakeAWithdrawalInAnAccountAsync(int idAccount, decimal amount);
-        Task<ImmutableList<Operation>> GetAllTransactionsAsync();    
-    }
+    Task<Account?> MakeADepositInAnAccountAsync(int idAccount, decimal amount);
+    Task<(bool IsSuccess, Account? account, string ErrorMessage)> MakeAWithdrawalInAnAccountAsync(int idAccount, decimal amount);
+    Task<ImmutableList<Operation>> GetAllTransactionsAsync();    
 }
