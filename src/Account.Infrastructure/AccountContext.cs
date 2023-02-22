@@ -2,13 +2,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Account.Infrastructure;
 
-public sealed class AccountContext: DbContext
+public sealed class AccountContext : DbContext
 {
     public AccountContext()
     {
     }
 
-    public AccountContext(DbContextOptions<AccountContext> dbContextOptions) 
+    public AccountContext(DbContextOptions<AccountContext> dbContextOptions)
             : base(dbContextOptions)
     {
 
@@ -18,7 +18,7 @@ public sealed class AccountContext: DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-       base.OnConfiguring(optionsBuilder);
+        base.OnConfiguring(optionsBuilder);
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

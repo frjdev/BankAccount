@@ -22,7 +22,7 @@ public class AccountRepository : IAccountRepository
 
     public async Task<Domain.Account?> MakeADepositInAnAccountAsync(int idAccount, decimal amount)
     {
-        var accountData = await _AccountContext.AccountSet.FirstOrDefaultAsync(x => x.Id == idAccount).ConfigureAwait(false);
+        var accountData = await _AccountContext.AccountSet.FirstOrDefaultAsync(x => x.Id == idAccount);
 
         if (accountData == null)
         {
@@ -31,16 +31,16 @@ public class AccountRepository : IAccountRepository
 
         accountData.Amount = amount;
         accountData.Balance += amount;
-        await _AccountContext.SaveChangesAsync().ConfigureAwait(false);
+        await _AccountContext.SaveChangesAsync();
 
-        var addOperation = await AddDepositOperation(accountData).ConfigureAwait(false);
+        var addOperation = await AddDepositOperation(accountData);
 
         return !addOperation ? null : AccountData.ToDomain(accountData);
     }
 
     public async Task<(bool IsSuccess, Domain.Account? account, string ErrorMessage)> MakeAWithdrawalInAnAccountAsync(int idAccount, decimal amount)
     {
-        var accountData = await _AccountContext.AccountSet.FirstOrDefaultAsync(x => x.Id == idAccount).ConfigureAwait(false);
+        var accountData = await _AccountContext.AccountSet.FirstOrDefaultAsync(x => x.Id == idAccount);
 
         if (accountData == null)
         {
@@ -55,9 +55,9 @@ public class AccountRepository : IAccountRepository
         }
 
         accountData.Balance -= amount;
-        await _AccountContext.SaveChangesAsync().ConfigureAwait(false);
+        await _AccountContext.SaveChangesAsync();
 
-        var addOperation = await AddWithdrawalOperation(accountData).ConfigureAwait(false);
+        var addOperation = await AddWithdrawalOperation(accountData);
 
         return !addOperation ? ((bool IsSuccess, Domain.Account? account, string ErrorMessage))(false, null, "Error during add Operation") : ((bool IsSuccess, Domain.Account? account, string ErrorMessage))(true, AccountData.ToDomain(accountData), string.Empty);
     }
@@ -66,20 +66,20 @@ public class AccountRepository : IAccountRepository
     {
         var operation = new OperationData() { Type = "Deposit", AccountData = accountData };
 
-        return await AddOperation(operation).ConfigureAwait(false);
+        return await AddOperation(operation);
     }
 
     private async Task<bool> AddWithdrawalOperation(AccountData accountData)
     {
         var operation = new OperationData() { Type = "WithDrawal", AccountData = accountData };
 
-        return await AddOperation(operation).ConfigureAwait(false);
+        return await AddOperation(operation);
     }
 
     private async Task<bool> AddOperation(OperationData operationData)
     {
-        await _AccountContext.OperationSet.AddAsync(operationData).ConfigureAwait(false);
-        var writtenState = await _AccountContext.SaveChangesAsync().ConfigureAwait(false);
+        await _AccountContext.OperationSet.AddAsync(operationData);
+        var writtenState = await _AccountContext.SaveChangesAsync();
 
         return writtenState == 1;
     }

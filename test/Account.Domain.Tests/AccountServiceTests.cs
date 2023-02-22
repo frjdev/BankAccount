@@ -16,7 +16,7 @@ public class AccountServiceTests
 
         var accountService = new AccountService(mockBankAccountRepository.Object);
 
-        var actual = await accountService.MakeADepositInAnAccountAsync(expected!.Id, 10).ConfigureAwait(false);
+        var actual = await accountService.MakeADepositInAnAccountAsync(expected!.Id, 10);
 
         Assert.Equal(expected, actual);
     }
@@ -32,7 +32,7 @@ public class AccountServiceTests
 
         var accountService = new AccountService(mockBankAccountRepository.Object);
 
-        var actual = await accountService.MakeAWithdrawalInAnAccountAsync(expected!.account!.Id, 10).ConfigureAwait(false);
+        var actual = await accountService.MakeAWithdrawalInAnAccountAsync(expected!.account!.Id, 10);
 
         Assert.Equal(expected, actual);
     }
@@ -46,7 +46,7 @@ public class AccountServiceTests
         mockBankAccountRepository.Setup(x => x.GetAllTransactionsAsync()).Returns(Task.FromResult(expected)!);
 
         var account = new AccountService(mockBankAccountRepository.Object);
-        var actual = await account.GetAllTransactionsAsync().ConfigureAwait(false);
+        var actual = await account.GetAllTransactionsAsync();
 
         Assert.Equal(actual, expected);
     }

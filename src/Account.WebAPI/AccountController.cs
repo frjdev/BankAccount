@@ -21,7 +21,7 @@ public class AccountController : ControllerBase
             return TypedResults.NoContent();
         }
 
-        var accountDomain = await _AccountService.MakeADepositInAnAccountAsync(id, UpateModelAmount.Amount).ConfigureAwait(false);
+        var accountDomain = await _AccountService.MakeADepositInAnAccountAsync(id, UpateModelAmount.Amount);
 
         if (accountDomain == null)
         {
@@ -41,14 +41,14 @@ public class AccountController : ControllerBase
             return TypedResults.NoContent();
         }
 
-        var resultDomain = await _AccountService.MakeAWithdrawalInAnAccountAsync(id, UpateModelAmount.Amount).ConfigureAwait(false);
+        var (IsSuccess, account, ErrorMessage) = await _AccountService.MakeAWithdrawalInAnAccountAsync(id, UpateModelAmount.Amount);
 
-        if (!resultDomain.IsSuccess || resultDomain.account == null)
+        if (!IsSuccess || account == null)
         {
-            return TypedResults.BadRequest(resultDomain.ErrorMessage);
+            return TypedResults.BadRequest(ErrorMessage);
         }
 
-        var accountView = AccountView.FromDomain(resultDomain.account!);
+        var accountView = AccountView.FromDomain(account!);
 
         return TypedResults.Ok(accountView);
     }
@@ -56,10 +56,12 @@ public class AccountController : ControllerBase
     [HttpGet]
     public async Task<IResult> GetAllTransactionsAsync()
     {
-        var transactionsDomain = await _AccountService.GetAllTransactionsAsync().ConfigureAwait(false);
+        var transactionsDomain = await _AccountService.GetAllTransactionsAsync();
 
         if (transactionsDomain == null)
+        {
             return TypedResults.BadRequest();
+        }
 
         var transactionsView = transactionsDomain.Select(x => OperationView.FromDomain(x!));
 

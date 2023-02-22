@@ -56,7 +56,6 @@ public class AccountControllerTests : IClassFixture<TestWebApplicationFactory<Pr
         await accountContext.AddRangeAsync(account);
         await accountContext.SaveChangesAsync();
 
-
         var updateRequestModel = new AccountUpdateModel
         {
             Amount = 10
@@ -87,7 +86,6 @@ public class AccountControllerTests : IClassFixture<TestWebApplicationFactory<Pr
         await accountContext.AddRangeAsync(account);
         await accountContext.SaveChangesAsync();
 
-
         var updateRequestModel = new AccountUpdateModel
         {
             Amount = 10
@@ -117,7 +115,6 @@ public class AccountControllerTests : IClassFixture<TestWebApplicationFactory<Pr
         var account = new AccountData { Date = DateTime.Now, Amount = 10, Balance = 0 };
         await accountContext.AddRangeAsync(account);
         await accountContext.SaveChangesAsync();
-
 
         var updateRequestModel = new AccountUpdateModel
         {
