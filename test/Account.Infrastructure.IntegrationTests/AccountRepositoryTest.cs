@@ -33,4 +33,21 @@ public class AccountRepositoryTest
 
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public async void ShouldBeAbleToMakeADepositAccount()
+    {
+        var options = ConnectToSqLiteDatabaseProduction();
+
+        await using var accountContext = new AccountContext(options);
+        var accountRepository = new AccountRepository(accountContext);
+
+        var account = accountContext.AccountSet.FirstOrDefaultAsync();
+        var actual = await accountRepository.MakeADepositInAnAccountAsync(account.Id, 22);
+
+        var accountData = await accountContext.AccountSet.FirstOrDefaultAsync(x => x.Id == account.Id);
+        var expected = AccountData.ToDomain(accountData!);
+
+        Assert.Equal(expected, actual);
+    }
 }
