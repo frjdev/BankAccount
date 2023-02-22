@@ -24,11 +24,11 @@ public class AccountRepositoryTest
     {
         var options = ConnectToSqLiteDatabaseProduction();
 
-        await using var temperatureContext = new AccountContext(options);
-        var temperatureRepository = new AccountRepository(temperatureContext);
-        var actual = await temperatureRepository.GetAllTransactionsAsync();
+        await using var accountContext = new AccountContext(options);
+        var accountRepository = new AccountRepository(accountContext);
+        var actual = await accountRepository.GetAllTransactionsAsync();
 
-        var accounts = temperatureContext.OperationSet;
+        var accounts = accountContext.OperationSet;
         var expected = accounts.Select(OperationData.ToDomain).ToImmutableList();
 
         Assert.Equal(expected, actual);
