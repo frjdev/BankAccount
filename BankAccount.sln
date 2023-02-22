@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.Infrastructure", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.WebAPI", "src\Account.WebAPI\Account.WebAPI.csproj", "{69A9A3B2-6171-475D-A671-E30AC47AA20D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account.Infrastructure.IntegrationTests", "test\Account.Infrastructure.IntegrationTests\Account.Infrastructure.IntegrationTests.csproj", "{D016A4F2-39D1-40A0-B0FC-978F40560F13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{69A9A3B2-6171-475D-A671-E30AC47AA20D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69A9A3B2-6171-475D-A671-E30AC47AA20D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69A9A3B2-6171-475D-A671-E30AC47AA20D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D016A4F2-39D1-40A0-B0FC-978F40560F13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D016A4F2-39D1-40A0-B0FC-978F40560F13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D016A4F2-39D1-40A0-B0FC-978F40560F13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D016A4F2-39D1-40A0-B0FC-978F40560F13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
