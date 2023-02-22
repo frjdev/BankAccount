@@ -75,4 +75,35 @@ public class AccountControllerTests : IClassFixture<TestWebApplicationFactory<Pr
 
         Assert.NotNull(actualValue);
     }
+
+    [Fact]
+    public async Task ShouldBeAbleToMakeAWithDrawal()
+    {
+        var options = ConnectToSqLiteDatabaseProduction();
+
+        await using var accountContext = new AccountContext(options);
+
+        var account = new AccountData { Date = DateTime.Now, Amount = 10, Balance = 30 };
+        await accountContext.AddRangeAsync(account);
+        await accountContext.SaveChangesAsync();
+
+
+        var updateRequestModel = new AccountUpdateModel
+        {
+            Amount = 10
+        };
+        var content = JsonConvert.SerializeObject(updateRequestModel);
+
+        var requestBody = new StringContent(content, Encoding.UTF8, "application/json");
+        var httpResponse = await _HttpClient.PutAsync($@"{RequestBaseUri}\Withdrawal\{account.Id}", requestBody);
+
+        Assert.Equal(HttpStatusCode.OK, httpResponse.StatusCode);
+
+        var responseAsString = await httpResponse.Content.ReadAsStringAsync();
+        Assert.NotNull(responseAsString);
+
+        var actualValue = JsonConvert.DeserializeObject<AccountView>(responseAsString);
+
+        Assert.NotNull(actualValue);
+    }
 }
