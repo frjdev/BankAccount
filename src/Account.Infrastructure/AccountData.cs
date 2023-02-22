@@ -14,5 +14,5 @@ public record AccountData
     public List<OperationData>? Operations { get; set; }
 
     public static Domain.Account ToDomain(AccountData account)
-        => new Domain.Account(account.Id, account.Date, account.Amount, account.Balance);
+        => new Domain.Account(account.Id, account.Date, account.Balance);
 }

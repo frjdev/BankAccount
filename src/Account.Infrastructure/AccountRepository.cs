@@ -59,7 +59,9 @@ public class AccountRepository : IAccountRepository
 
         var addOperation = await AddWithdrawalOperation(accountData);
 
-        return !addOperation ? ((bool IsSuccess, Domain.Account? account, string ErrorMessage))(false, null, "Error during add Operation") : ((bool IsSuccess, Domain.Account? account, string ErrorMessage))(true, AccountData.ToDomain(accountData), string.Empty);
+        return !addOperation ?
+            ((bool IsSuccess, Domain.Account? account, string ErrorMessage))(false, null, "Error during add Operation")
+            : ((bool IsSuccess, Domain.Account? account, string ErrorMessage))(true, AccountData.ToDomain(accountData), string.Empty);
     }
 
     private async Task<bool> AddDepositOperation(AccountData accountData)
