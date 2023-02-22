@@ -50,4 +50,21 @@ public class AccountRepositoryTest
 
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public async void ShouldBeAbleToMakeAWithdrawalAccount()
+    {
+        var options = ConnectToSqLiteDatabaseProduction();
+        var amount = 22;
+        await using var accountContext = new AccountContext(options);
+        var accountRepository = new AccountRepository(accountContext);
+
+        var account = accountContext.AccountSet.FirstOrDefaultAsync(x => x.Balance > x.Balance - amount);
+        var actual = await accountRepository.MakeAWithdrawalInAnAccountAsync(account.Id, amount);
+
+        var accountData = await accountContext.AccountSet.FirstOrDefaultAsync(x => x.Id == account.Id);
+        var expected = AccountData.ToDomain(accountData!);
+
+        Assert.Equal(expected, actual.account);
+    }
 }
