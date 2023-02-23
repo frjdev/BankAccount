@@ -4,14 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IAccountRepository, AccountRepository>();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
-
-
-string workingDirectory = Environment.CurrentDirectory;
-
+var workingDirectory = Environment.CurrentDirectory;
 var DbPath = Path.Join(workingDirectory, "BankAccount.db");
 
 builder.Services.AddDbContext<AccountContext>(options =>
@@ -22,5 +20,16 @@ builder.Services.AddDbContext<AccountContext>(options =>
 builder.Services.AddControllers();
 var app = builder.Build();
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        options.RoutePrefix = string.Empty;
+    });
+}
+
 app.MapControllers();
 app.Run();
+public partial class Program { }
