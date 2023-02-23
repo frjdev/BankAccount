@@ -20,66 +20,43 @@ public class AccountRepository : IAccountRepository
         return Task.FromResult(operationDomain);
     }
 
-    public async Task<Domain.Account?> MakeADepositInAnAccountAsync(int idAccount, decimal amount)
+    public async Task<bool> MakeADepositInAnAccountAsync(int idAccount, decimal amount)
     {
         var accountData = await _AccountContext.AccountSet.FirstOrDefaultAsync(x => x.Id == idAccount);
 
-        if (accountData == null)
-        {
-            return null;
-        }
-
-        accountData.Amount = amount;
+        accountData!.Amount = amount;
         accountData.Balance += amount;
-        await _AccountContext.SaveChangesAsync();
 
-        var addOperation = await AddDepositOperation(accountData);
+        _AccountContext.AccountSet.Update(accountData);
+        var writtenState = await _AccountContext.SaveChangesAsync();
 
-        return !addOperation ? null : AccountData.ToDomain(accountData);
+        return writtenState == 1;
     }
 
-    public async Task<(bool IsSuccess, Domain.Account? account, string ErrorMessage)> MakeAWithdrawalInAnAccountAsync(int idAccount, decimal amount)
+    public async Task<Domain.Account?> GetAccountAsync(int idAccount)
     {
         var accountData = await _AccountContext.AccountSet.FirstOrDefaultAsync(x => x.Id == idAccount);
 
-        if (accountData == null)
-        {
-            return (false, null, "account doesn't exist");
-        }
-
-        accountData.Amount = amount;
-
-        if (accountData.Balance - amount < 0)
-        {
-            return (false, AccountData.ToDomain(accountData), "Insufficient funds");
-        }
-
-        accountData.Balance -= amount;
-        await _AccountContext.SaveChangesAsync();
-
-        var addOperation = await AddWithdrawalOperation(accountData);
-
-        return !addOperation ?
-            ((bool IsSuccess, Domain.Account? account, string ErrorMessage))(false, null, "Error during add Operation")
-            : ((bool IsSuccess, Domain.Account? account, string ErrorMessage))(true, AccountData.ToDomain(accountData), string.Empty);
+        return AccountData.ToDomain(accountData!);
     }
 
-    private async Task<bool> AddDepositOperation(AccountData accountData)
+    public async Task<bool> MakeAWithdrawalInAnAccountAsync(int idAccount, decimal amount)
     {
-        var operation = new OperationData() { Type = "Deposit", AccountData = accountData };
+        var accountData = await _AccountContext.AccountSet.FirstOrDefaultAsync(x => x.Id == idAccount);
 
-        return await AddOperation(operation);
+        accountData!.Balance -= amount;
+
+        _AccountContext.AccountSet.Update(accountData);
+        var writtenState = await _AccountContext.SaveChangesAsync();
+
+        return writtenState == 1;
     }
 
-    private async Task<bool> AddWithdrawalOperation(AccountData accountData)
+    public async Task<bool> AddOperationAsync(string? operation, int idAccount)
     {
-        var operation = new OperationData() { Type = "WithDrawal", AccountData = accountData };
+        var accountData = await _AccountContext.AccountSet.FirstOrDefaultAsync(x => x.Id == idAccount);
+        var operationData = new OperationData() { Type = operation, AccountData = accountData };
 
-        return await AddOperation(operation);
-    }
-
-    private async Task<bool> AddOperation(OperationData operationData)
-    {
         await _AccountContext.OperationSet.AddAsync(operationData);
         var writtenState = await _AccountContext.SaveChangesAsync();
 

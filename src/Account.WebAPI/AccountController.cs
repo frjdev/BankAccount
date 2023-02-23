@@ -21,14 +21,14 @@ public class AccountController : ControllerBase
             return TypedResults.NoContent();
         }
 
-        var accountDomain = await _AccountService.MakeADepositInAnAccountAsync(id, UpateModelAmount.Amount);
+        var (IsSuccess, account, ErrorMessage) = await _AccountService.MakeADepositInAnAccountAsync(id, UpateModelAmount.Amount);
 
-        if (accountDomain == null)
+        if (!IsSuccess || account == null)
         {
-            return TypedResults.BadRequest();
+            return TypedResults.BadRequest(ErrorMessage);
         }
 
-        var accountView = AccountView.FromDomain(accountDomain!);
+        var accountView = AccountView.FromDomain(account!);
 
         return TypedResults.Ok(accountView);
     }

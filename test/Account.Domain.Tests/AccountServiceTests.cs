@@ -9,14 +9,15 @@ public class AccountServiceTests
     [Fact]
     public async Task ShouldBeAbleToMakeADepositInAnAccount()
     {
-        var expected = Samples.accountsSamples!.FirstOrDefault();
+        var account = Samples.accountsSamples!.FirstOrDefault();
+        var expected = (true, account, string.Empty);
 
         var mockBankAccountRepository = new Mock<IAccountRepository>();
-        mockBankAccountRepository.Setup(x => x.MakeADepositInAnAccountAsync(expected!.Id, 10)).ReturnsAsync(expected);
+        mockBankAccountRepository.Setup(x => x.MakeADepositInAnAccountAsync(expected!.account!.Id, 10)).ReturnsAsync(true);
 
         var accountService = new AccountService(mockBankAccountRepository.Object);
 
-        var actual = await accountService.MakeADepositInAnAccountAsync(expected!.Id, 10);
+        var actual = await accountService.MakeADepositInAnAccountAsync(expected!.account!.Id, 10);
 
         Assert.Equal(expected, actual);
     }
@@ -28,7 +29,7 @@ public class AccountServiceTests
         var expected = (true, account, string.Empty);
 
         var mockBankAccountRepository = new Mock<IAccountRepository>();
-        mockBankAccountRepository.Setup(x => x.MakeAWithdrawalInAnAccountAsync(expected!.account!.Id, 10)).ReturnsAsync(expected);
+        mockBankAccountRepository.Setup(x => x.MakeAWithdrawalInAnAccountAsync(expected!.account!.Id, 10)).ReturnsAsync(true);
 
         var accountService = new AccountService(mockBankAccountRepository.Object);
 
