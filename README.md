@@ -1,9 +1,7 @@
-# Built With
+# Built with
+Ce kata est implémenté en utilisant l'architecture hexagonale, C#.NET Core 7 et suit le cycle TDD red/green/refactor avec xUnit
 
-.NET 7
-TDD - Xunit
-Hexagnoale
-SqLite EF
+Object
 
 # Bank Account Kata
 
