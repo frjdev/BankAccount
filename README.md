@@ -1,8 +1,6 @@
 # Built with
 Ce kata est implémenté en utilisant l'architecture hexagonale, C#.NET Core 7 et suit le cycle TDD red/green/refactor avec xUnit
 
-Object
-
 # Bank Account Kata
 
 ## Directives
